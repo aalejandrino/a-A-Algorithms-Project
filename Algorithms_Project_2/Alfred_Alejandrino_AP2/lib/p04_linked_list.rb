@@ -22,7 +22,7 @@ end
 
 class LinkedList
   include Enumerable
-  
+
   def initialize
     @head = Node.new(nil, 'head')
     @tail = Node.new(nil, 'tail')
@@ -50,7 +50,8 @@ class LinkedList
   end
 
   def empty?
-    @nodes.empty?
+    return true if @count == 0
+    return false
   end
 
   def get(key)
@@ -124,7 +125,7 @@ class LinkedList
     nodes = []
     current_node = first
     # byebug
-    until current_node.next == nil
+    until current_node == nil || current_node.next == nil
       # nodes << current_node
       block.call(current_node)
       current_node = current_node.next
@@ -135,7 +136,7 @@ class LinkedList
   end
 
   # uncomment when you have `each` working and `Enumerable` included
-  # def to_s
-  #   inject([]) { |acc, node| acc << "[#{node.key}, #{node.val}]" }.join(", ")
-  # end
+  def to_s
+    inject([]) { |acc, node| acc << "[#{node.key}, #{node.val}]" }.join(", ")
+  end
 end
