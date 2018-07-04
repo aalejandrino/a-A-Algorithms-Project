@@ -29,7 +29,12 @@ class HashMap
   end
 
   def get(key)
+    # byebug
     bucket(key).get(key)
+  end
+
+  def get_node(key)
+    bucket(key).get_node(key)
   end
 
   def delete(key)
@@ -50,12 +55,12 @@ class HashMap
   end
 
   # uncomment when you have Enumerable included
-  # def to_s
-  #   pairs = inject([]) do |strs, (k, v)|
-  #     strs << "#{k.to_s} => #{v.to_s}"
-  #   end
-  #   "{\n" + pairs.join(",\n") + "\n}"
-  # end
+  def to_s
+    pairs = inject([]) do |strs, (k, v)|
+      strs << "#{k.to_s} => #{v.to_s}"
+    end
+    "{\n" + pairs.join(",\n") + "\n}"
+  end
 
   alias_method :[], :get
   alias_method :[]=, :set

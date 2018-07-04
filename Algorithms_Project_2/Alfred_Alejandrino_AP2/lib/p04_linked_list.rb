@@ -125,7 +125,7 @@ class LinkedList
     nodes = []
     current_node = first
     # byebug
-    until current_node == nil || current_node.next == nil
+    until current_node == nil || current_node.val == 'tail'
       # nodes << current_node
       block.call(current_node)
       current_node = current_node.next
