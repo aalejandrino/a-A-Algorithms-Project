@@ -1,4 +1,5 @@
 require "heap"
+require 'byebug'
 
 describe BinaryMinHeap do
   describe "indexing functions" do
@@ -84,7 +85,7 @@ describe BinaryMinHeap do
     it "extracts correctly" do
       heap = BinaryMinHeap.new
       [7, 5, 6, 4].each { |el| heap.push(el) }
-
+      # byebug
       expect(heap.extract).to eq(4)
       expect(heap.send(:store)).to eq([5, 7, 6])
 
