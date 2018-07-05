@@ -5,6 +5,7 @@ class BinaryMinHeap
 
   def initialize(&prc)
     @store = []
+    @prc = prc || Proc.new {|el1, el2| el1 <=> el2}
   end
 
   def count
@@ -12,7 +13,12 @@ class BinaryMinHeap
   end
 
   def extract
-    extract_num = @store.min
+    if prc.call(1, 2) == -1
+      extract_num = @store.min
+    else
+      extract_num = @store.max
+    end
+    
     extract_i = nil
     
     @store.each_with_index do |el, i|
@@ -23,7 +29,7 @@ class BinaryMinHeap
     # byebug
     result = @store.pop
 
-    BinaryMinHeap.heapify_down(@store, 0, @store.length)
+    BinaryMinHeap.heapify_down(@store, 0, @store.length, &@prc)
 
     # p @store
     return result
