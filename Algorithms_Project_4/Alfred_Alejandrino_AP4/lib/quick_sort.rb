@@ -3,7 +3,7 @@ require 'byebug'
 class QuickSort
   # Quick sort has average case time complexity O(nlogn), but worst
   # case O(n**2).
-
+  
   # Not in-place. Uses O(n) memory.
   def self.sort1(array)
     return array if array.length <= 1
@@ -14,7 +14,7 @@ class QuickSort
     right = others.select {|n| n > first}
 
     QuickSort.sort1(left) + [first] + QuickSort.sort1(right)
-
+    
   end
 
   # In-place.
@@ -25,8 +25,9 @@ class QuickSort
     
     idx = QuickSort.partition(array, start, length, &prc)
     
-    QuickSort.sort2!(array, start, idx-start, &prc)
-    QuickSort.sort2!(array, idx+1, length-idx-1, &prc)
+    sort2!(array, start, idx-start, &prc)
+    # sort2!(array, idx+1, length-idx-1, &prc)
+    sort2!(array, idx+1, length-idx-1, &prc)
 
   end
 
@@ -42,11 +43,11 @@ class QuickSort
       num = prc.call(array[start], array[idx])
       # p "proc called"
 
-      if num == 1
+      if num >= 0
         barrier += 1
         array[barrier],  array[idx] = array[idx], array[barrier]
       end
-
+ 
 
     end
 
