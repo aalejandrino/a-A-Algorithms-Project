@@ -19,33 +19,40 @@ class QuickSort
 
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
-    return nil if length <= 1
+    return if length <= 1
 
     prc ||= Proc.new{|x,y| x <=> y}
     
     idx = QuickSort.partition(array, start, length, &prc)
     
-    QuickSort.sort2!(array, 0, idx, &prc)
+    QuickSort.sort2!(array, start, idx-start, &prc)
     QuickSort.sort2!(array, idx+1, length-idx-1, &prc)
 
   end
 
   def self.partition(array, start, length, &prc)
+    # p "partition called"
+    return if length <= 1
     prc ||= Proc.new{|x,y| x <=> y}
 
     barrier = start
 
     (start+1...start+length).each do |idx|
-      if array[idx] < array[start]
+     
+      num = prc.call(array[start], array[idx])
+      # p "proc called"
+
+      if num == 1
         barrier += 1
-        array[barrier], array[idx] = array[idx], array[barrier]
-      else
- 
+        array[barrier],  array[idx] = array[idx], array[barrier]
       end
+
+
     end
 
     array[start], array[barrier] = array[barrier], array[start]
-    
+
+    # p barrier
     return barrier #pivot index
   end
 
