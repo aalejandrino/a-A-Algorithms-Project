@@ -19,7 +19,7 @@ class QuickSort
 
   # In-place.
   def self.sort2!(array, start = 0, length = array.length, &prc)
-    return if length <= 1
+    return array if length <= 1
 
     prc ||= Proc.new{|x,y| x <=> y}
     
@@ -32,7 +32,7 @@ class QuickSort
 
   def self.partition(array, start, length, &prc)
     # p "partition called"
-    return if length <= 1
+    return start if length <= 1
     prc ||= Proc.new{|x,y| x <=> y}
 
     barrier = start
