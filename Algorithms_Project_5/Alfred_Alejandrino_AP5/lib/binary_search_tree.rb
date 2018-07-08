@@ -1,5 +1,6 @@
 # There are many ways to implement these methods, feel free to add arguments 
 # to methods as you see fit, or to create helper methods.
+require 'byebug'
 
 require_relative 'bst_node'
 
@@ -26,6 +27,12 @@ class BinarySearchTree
   def find(value, tree_node = @root)
     tree_node.find(value)
   end
+
+  # def depth(tree_node = @root)
+  #   byebug
+  #   tree_node.find(2)[1]
+  # end
+  
 
   def delete(value)
     node_to_del = find(value)
@@ -63,16 +70,63 @@ class BinarySearchTree
     return curr_node
   end
 
-  def depth(tree_node = @root)
-    Math.log2(@count).ceil
+  def depth(tree_node = @root, count = 0)
+    # return count if tree_node == nil || tree_node.no_children?
+
+    # result = []
+
+    # count += 1
+    # result << depth(tree_node.left, count)
+    # result << depth(tree_node.right, count)
+
+    # # result
+    # result.flatten.max || 0
+
+    height(tree_node) - 1
+  
   end 
 
-  def is_balanced?(tree_node = @root)
+  def height(tree_node = @root)
+    return 0 if tree_node.nil?
 
+    leftHeight = height(tree_node.left)
+    rightHeight = height(tree_node.right)
+
+    return [leftHeight, rightHeight].max + 1
+  end
+
+  def check_if_bal(tree_node = @root)
+    return 0 if tree_node.nil?
+
+    leftHeight = check_if_bal(tree_node.left)
+    return -1 if leftHeight == -1
+
+    rightHeight = check_if_bal(tree_node.right)
+    return -1 if rightHeight == -1
+
+    diff = leftHeight - rightHeight
+    if diff.abs > 1
+      return -1
+    else
+      [leftHeight, rightHeight].max + 1
+    end
+  end
+
+  def is_balanced?(tree_node = @root)
+    check_if_bal(tree_node) == -1 ? false : true
   end
 
   def in_order_traversal(tree_node = @root, arr = [])
-    
+    return [] if tree_node == nil
+
+    result = []
+
+    result.concat in_order_traversal(tree_node.left)
+    result << tree_node.value
+    result.concat in_order_traversal(tree_node.right)
+
+    result
+
   end
 
 

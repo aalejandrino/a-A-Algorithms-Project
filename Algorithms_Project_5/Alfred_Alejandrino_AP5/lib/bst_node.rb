@@ -60,6 +60,14 @@ class BSTNode
     end
   end
 
+  def two_children?
+    if ((left != nil) && (right != nil))
+      return true
+    else
+      return false
+    end
+  end
+
 
 
 
