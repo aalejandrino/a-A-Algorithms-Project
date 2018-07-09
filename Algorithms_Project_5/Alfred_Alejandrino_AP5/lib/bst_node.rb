@@ -16,7 +16,6 @@ class BSTNode
       !!@right ? @right.set(node) : (@right = node; node.parent = self)
     end
 
-    # node.parent = self
   end
 
   def find(val)

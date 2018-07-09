@@ -27,11 +27,6 @@ class BinarySearchTree
   def find(value, tree_node = @root)
     tree_node.find(value)
   end
-
-  # def depth(tree_node = @root)
-  #   byebug
-  #   tree_node.find(2)[1]
-  # end
   
 
   def delete(value)
@@ -59,7 +54,6 @@ class BinarySearchTree
     end
 
     @count -= 1
-    
   end
 
   # helper method   for #delete:
@@ -71,19 +65,8 @@ class BinarySearchTree
   end
 
   def depth(tree_node = @root, count = 0)
-    # return count if tree_node == nil || tree_node.no_children?
-
-    # result = []
-
-    # count += 1
-    # result << depth(tree_node.left, count)
-    # result << depth(tree_node.right, count)
-
-    # # result
-    # result.flatten.max || 0
 
     height(tree_node) - 1
-  
   end 
 
   def height(tree_node = @root)
