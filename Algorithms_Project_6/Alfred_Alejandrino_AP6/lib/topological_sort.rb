@@ -16,8 +16,9 @@ def topological_sort(vertices)
     until top.empty?
         current_node = top.pop
         sorted << current_node
-        # byebug
-        current_node.out_edges.each do |edge|
+
+        out_edges = current_node.out_edges.dup
+        out_edges.each do |edge|
             next_node = edge.to_vertex
             edge.destroy!
             
@@ -29,6 +30,5 @@ def topological_sort(vertices)
 
     end
     
-    # p sorted.map {|node| node.value}
     sorted.length == vertices.length ? sorted : []
 end

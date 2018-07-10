@@ -30,12 +30,10 @@ class Edge
   end
 
   def destroy!
-    # @from_vertex.out_edges.delete(self) #doesn't delete properly??
-    @from_vertex.out_edges -= [self]
+    @from_vertex.out_edges.delete(self)
     self.from_vertex = nil
 
-    # @to_vertex.in_edges.delete(self)
-    @to_vertex.in_edges -= [self]
+    @to_vertex.in_edges.delete(self)
     self.to_vertex = nil
 
   end
