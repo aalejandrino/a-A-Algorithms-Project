@@ -15,6 +15,7 @@ def topological_sort(vertices)
 
     until top.empty?
         current_node = top.pop
+        return [] if sorted.include?(current_node) #checks for cyclic graph
         sorted << current_node
 
         out_edges = current_node.out_edges.dup
@@ -30,5 +31,5 @@ def topological_sort(vertices)
 
     end
     
-    sorted.length == vertices.length ? sorted : []
+    return sorted.length == vertices.length ? sorted : [] #checks for unconnected graph
 end
