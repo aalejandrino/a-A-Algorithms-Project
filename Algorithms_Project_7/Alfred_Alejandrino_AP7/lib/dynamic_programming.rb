@@ -1,11 +1,17 @@
+require 'byebug'
+
 class DynamicProgramming
 
   def initialize
-
+    @blair_cache = { 1 => 1, 2 => 2 }
   end
 
   def blair_nums(n)
+    return @blair_cache[n] if @blair_cache[n]
+    ans = blair_nums(n - 1) + blair_nums(n - 2) + ((n - 1)*2 - 1)
+    @blair_cache[n] = ans
 
+    return ans
   end
 
   def frog_hops_bottom_up(n)
