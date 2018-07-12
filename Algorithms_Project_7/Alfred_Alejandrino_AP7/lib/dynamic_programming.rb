@@ -59,14 +59,19 @@ class DynamicProgramming
   end
 
   def frog_hops_top_down_helper(n)
-    return @frog_cache[1] if n == 1
+    return @frog_cache[n] if @frog_cache[n]
 
-    frog_hops_top_down_helper(n - 1)
+    @frog_cache[n] = []
 
+    (1..3).each do |diff|
+      @frog_cache[n].concat(frog_hops_top_down_helper(n - diff).map {|arr| arr + [diff]})
+    end
+
+    @frog_cache[n]
   end
 
   def super_frog_hops(n, k)
-
+    
   end
 
   def knapsack(weights, values, capacity)
