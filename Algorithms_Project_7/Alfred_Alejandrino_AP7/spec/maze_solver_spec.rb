@@ -15,7 +15,7 @@ describe 'Maze traversal' do
   let(:dp) { DynamicProgramming.new() }
 
   it 'handles a small maze' do
-    expect(dp.maze_solver(maze1, [1, 1], [0, 6])).to eq([[1, 1], [1, 2], [2, 2]])
+    expect(dp.maze_solver(maze1, [1, 1], [2, 2])).to eq([[1, 1], [1, 2], [2, 2]])
   end
 
   it 'chooses the optimal solution among many' do

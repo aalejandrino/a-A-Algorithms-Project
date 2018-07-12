@@ -9,6 +9,7 @@ class DynamicProgramming
                     3 => [[1, 1, 1], [1, 2], [2, 1], [3]]
                   }
     @super_frog_cache = { 1 => [[1]] }
+    @maze_cache = {}
   end
 
   def blair_nums(n) # from top-down
@@ -126,12 +127,55 @@ class DynamicProgramming
   end
 
   def maze_solver(maze, start_pos, end_pos)
-    if maze == [['X', 'X', 'X', 'X'],
-                ['X', 'S', ' ', 'X'],
-                ['X', 'X', 'F', 'X']]
-      [[1, 1], [1, 2], [2, 2]]
-    else
-      [[1, 1], [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [1, 6], [0, 6]]
-    end
+      build_cache(start_pos)
+      solve_maze(maze, start_pos, end_pos)
+      find_path(end_pos)
+  end
+
+  private
+
+  def solve_maze(maze, start_pos, end_pos)
+      return true if start_pos == end_pos
+
+      get_moves(maze, start_pos).each do |new_loc|
+          unless @maze_cache.keys.include?(new_loc)
+              @maze_cache[new_loc] = start_pos
+              solve_maze(maze, new_loc, end_pos)
+          end
+      end
+  end
+
+  def build_cache(start_pos)
+      @maze_cache[start_pos] = nil
+  end
+
+  def find_path(end_pos)
+      path = []
+      current = end_pos
+
+      until current.nil?
+          path.unshift(current)
+          current = @maze_cache[current]
+      end
+
+      path
+  end
+
+  def get_moves(maze, from_pos)
+      directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
+      x, y = from_pos
+      result = []
+
+      directions.each do |dx, dy|
+          new_loc = [x + dx, y + dy]
+          result << new_loc if is_valid_pos?(maze, new_loc)
+      end
+
+      result
+  end
+
+  def is_valid_pos?(maze, pos)
+      x, y = pos
+      x >= 0 && y >= 0 && x < maze.length && y < maze.first.length && maze[x][y] != "X"
   end
 end
